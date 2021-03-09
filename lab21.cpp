@@ -27,8 +27,83 @@ ComplexNumber ComplexNumber::operator+(const ComplexNumber &c){
 ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 	return ComplexNumber(real-c.real,imag-c.imag);
 }
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	double d,e,f,g;
+	d = real*c.real;
+	e = real*c.imag;
+	f = imag*c.real;
+	g = imag*c.imag;
+	
+	return ComplexNumber(d-g,e+f);
+	
+}
 
-//Write your code here
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	double d,e,f,g,h;	
+	d = real*c.real;
+	e = real*c.imag;
+	f = imag*c.real;
+	g = imag*c.imag;
+	h = (c.real*c.real)+(c.imag*c.imag);
+	
+	return ComplexNumber((d+g)/h,(f-e)/h);
+}
+
+ComplexNumber operator+(double s,const ComplexNumber &c){
+    return ComplexNumber(s+c.real,c.imag);
+}
+ComplexNumber operator-(double s,const ComplexNumber &c){
+    return ComplexNumber(s-c.real,-c.imag);
+}
+ComplexNumber operator*(double s,const ComplexNumber &c){
+    double a,b;
+    a = s*c.real;
+    b = s*c.imag;
+    
+    return ComplexNumber(a,b);
+}
+ComplexNumber operator/(double s,const ComplexNumber &c){
+    double a,b,h;
+    a = s*c.real;
+    b = s*c.imag*(-1);
+	h = (c.real*c.real)+(c.imag*c.imag);
+	
+	return ComplexNumber(a/h,b/h);
+}
+
+ostream & operator<<(ostream &os,const ComplexNumber &c){
+	if(c.imag == 0) return os << c.real;
+	else if(c.imag < 0){
+		if(c.real == 0) return os << c.imag << "i";
+		else return os << c.real << c.imag << "i";
+	}
+	else if(c.real == 0) return os << c.imag << "i";
+	else return os << c.real << "+" << c.imag << "i";
+}
+
+ComplexNumber operator==(double s, const ComplexNumber &c){
+    if(s==c.real and s==c.imag) return true;
+    else return false;
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c){
+    if(real==c.real and imag==c.imag) return true;
+    else return false;
+}
+    
+
+double ComplexNumber::abs(){
+    return sqrt(real*real + imag*imag);
+	
+}
+double ComplexNumber::angle(){
+  return atan2 (imag,real) * 180 / M_PI;
+  
+}
+
+
+
+
 
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
